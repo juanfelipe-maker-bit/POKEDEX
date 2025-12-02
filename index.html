@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pokédex</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-grid">
+      <div class="brand">
+        <!-- SVG logo embebido (siempre carga) -->
+        <svg class="logo" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <circle cx="32" cy="32" r="30" fill="#ef4444"/>
+          <circle cx="32" cy="32" r="16" fill="#fff"/>
+          <circle cx="32" cy="32" r="6" fill="#0b1220"/>
+          <rect x="2" y="30" width="60" height="4" fill="#0b1220"/>
+        </svg>
+
+        <h1 id="siteTitle">POKÉDEX</h1>
+      </div>
+
+      <div class="controls">
+        <label class="theme-switch" for="themeToggle">
+          <input type="checkbox" id="themeToggle" aria-label="Activar modo oscuro" />
+          <span class="slider" aria-hidden="true"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Tabs justo bajo el título -->
+    <nav class="tabs container" role="tablist" aria-label="Secciones">
+      <button class="tab-btn active" data-tab="all" role="tab" aria-selected="true">Todos</button>
+      <button class="tab-btn" data-tab="favorites" role="tab" aria-selected="false">Favoritos ❤️</button>
+      <button class="tab-btn" data-tab="types" role="tab" aria-selected="false">Tipos</button>
+    </nav>
+  </header>
+
+  <main class="container main-content">
+    <!-- Search -->
+    <section id="searchSection" class="panel" aria-labelledby="searchTitle">
+      <h2 id="searchTitle" class="visually-hidden">Buscar Pokémon</h2>
+      <form id="searchForm" class="search-form" role="search">
+        <input type="search" id="searchInput" name="query" placeholder="Nombre o número (ej: pikachu o 25)" aria-label="Buscar Pokémon" />
+        <button type="submit" id="searchBtn">Buscar</button>
+        <button type="button" id="randomBtn">Random</button>
+      </form>
+    </section>
+
+    <!-- Types -->
+    <section id="typesSection" class="panel hidden">
+      <label for="typeSelect">Filtrar por tipo:</label>
+      <select id="typeSelect"><option value="">— Elige un tipo —</option></select>
+    </section>
+
+    <!-- Status -->
+    <div id="status" class="status" aria-live="polite" hidden></div>
+
+    <!-- Cards grid -->
+    <section id="cardsContainer" class="cards" role="region" aria-label="Resultados"></section>
+
+    <!-- Pagination (visible in 'Todos') -->
+    <div id="pagination" class="pagination">
+      <button id="prevBtn" aria-label="Anterior">⬅️ Anterior</button>
+      <span id="pageInfo" class="page-info" aria-live="polite"></span>
+      <button id="nextBtn" aria-label="Siguiente">Siguiente ➡️</button>
+    </div>
+  </main>
+
+  <footer class="site-footer container">
+    <div class="footer-grid">
+      <p>&copy; <span id="year"></span> Pokédex — JUAN FELIPE GUTIERREZ</p>
+    </div>
+  </footer>
+
+  <script src="index.js" defer></script>
+</body>
+</html>

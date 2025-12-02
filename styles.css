@@ -1,0 +1,211 @@
+/* ===== VARIABLES & RESET ===== */
+:root{
+  --accent:#ef4444;
+  --card-light: rgba(215, 215, 215, 0.825);
+  --card-dark: rgba(119, 119, 119, 0.6);
+  --text-light:#000000;
+  --text-dark:#eaeef6;
+  --muted:#6b7280;
+  --radius:12px;
+  --gap:1rem;
+  --transition:220ms ease;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+  color:var(--text-light);
+
+  /* Fondo un poco más oscuro y más desvanecido */
+  background-image:
+    /* Capa de oscurecimiento suave: antes 0.4 → ahora 0.55 */
+    linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+    /* Desvanecido extra sobre las pokebolas */
+    linear-gradient(rgba(255,255,255,0.50), rgba(255,255,255,0.50)),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g><rect width='120' height='120' fill='%23ffffff'/><g transform='translate(10,10)'><circle cx='20' cy='20' r='18' fill='%23ef4444'/><circle cx='20' cy='20' r='10' fill='%23fff'/><circle cx='20' cy='20' r='4' fill='%230b1220'/><rect x='2' y='19' width='36' height='2' fill='%230b1220'/></g></g></svg>");
+
+  background-repeat:repeat;
+  background-size:120px;
+  background-attachment: fixed;
+  transition:background var(--transition), color var(--transition);
+}
+
+
+/* Dark overlay while keeping pattern */
+html.dark body{
+  color:var(--text-dark);
+  background-image:
+    linear-gradient(rgba(11,18,32,0.75), rgba(11,18,32,0.75)),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><g><rect width='120' height='120' fill='%230b1220'/><g transform='translate(10,10)'><circle cx='20' cy='20' r='18' fill='%23ff9b9b'/><circle cx='20' cy='20' r='10' fill='%23fff'/><circle cx='20' cy='20' r='4' fill='%230b1220'/><rect x='2' y='19' width='36' height='2' fill='%230b1220'/></g></g></svg>");
+}
+
+/* Container */
+.container{max-width:1100px;margin:0 auto;padding:1rem}
+
+/* Header */
+.site-header{padding:.8rem 0}
+.header-grid{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+  text-align: center;
+}
+
+.logo {
+  width: 170px;
+  height: 170px;
+}
+
+#siteTitle{
+  font-size:2.2rem;
+  margin:0;
+  padding:10px 20px;
+  border-radius:8px;
+  background: rgba(255, 255, 255, 0.677);  /* MÁS VISIBLE */
+  color:#0a0a0a;                          /* TEXTO MÁS OSCURO */
+  font-weight:900;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+}
+
+/* Dark title contrast */
+html.dark #siteTitle{
+  background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.28));
+  color:var(--text-dark);
+  text-shadow:none;
+}
+
+/* Theme switch */
+.theme-switch{display:inline-flex;align-items:center;gap:.6rem}
+.theme-switch input{display:none}
+.theme-switch .slider{width:44px;height:24px;border-radius:999px;background:#e6e9ef;position:relative;display:inline-block;transition:background var(--transition)}
+.theme-switch .slider::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:white;transition:transform var(--transition)}
+html.dark .theme-switch .slider{background:rgba(255,255,255,0.08)}
+html.dark .theme-switch .slider::after{transform:translateX(20px)}
+
+/* TABS (mejoradas) */
+/* ==== TABS VISIBLES Y CON CONTRASTE ==== */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: .7rem;
+}
+
+.tab {
+  padding: .6rem 1.2rem;
+  background: rgba(255,255,255,0.35);
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 200ms ease;
+  color: #000;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.tab:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.55);
+}
+
+.tab.active {
+  background: var(--accent);
+  color: #999898;
+  border-color: var(--accent);
+}
+
+/* En modo oscuro */
+html.dark .tab {
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+html.dark .tab:hover {
+  background: rgba(0,0,0,0.55);
+}
+
+.tab-btn{
+  padding:0.6rem 1.4rem;border:none;border-radius:50px;background:rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);box-shadow:0 6px 18px rgba(0,0,0,0.12);font-weight:700;cursor:pointer;transition:transform .22s ease, background .22s ease;
+  color:var(--accent);
+}
+.tab-btn:hover{transform:translateY(-4px)}
+.tab-btn.active{background:var(--accent);color:white;box-shadow:0 10px 24px rgba(0,0,0,0.18)}
+
+/* Panels */
+.panel{margin:.8rem 0}
+.hidden{display:none}
+
+/* Search */
+.search-form{display:flex;gap:.6rem;align-items:center;justify-content:center}
+.search-form input{flex:1;max-width:420px;padding:.6rem .9rem;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:var(--card-light)}
+html.dark .search-form input{background:var(--card-dark);border:1px solid rgba(255,255,255,0.04)}
+.search-form button{padding:.6rem .9rem;border-radius:10px;border:0;background:var(--accent);color:white;cursor:pointer}
+
+/* Status */
+.status{margin:1rem 0;text-align:center;color:var(--muted)}
+html.dark .status{color:#9aa6b2}
+
+/* CARDS GRID - responsive: desktop 4 cols x 3 rows (12 cards by JS) */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--gap);
+  margin-top: 1rem;
+  width: 100%;
+}
+
+@media(min-width:640px){ .cards{grid-template-columns:repeat(2,1fr);} }
+@media(min-width:900px){ .cards{grid-template-columns:repeat(3,1fr);} }
+@media(min-width:1200px){ .cards{grid-template-columns:repeat(4,1fr);} }
+
+/* Card visual */
+.card{
+  background:var(--card-light);
+  border-radius:var(--radius);
+  padding:1rem;
+  box-shadow:0 10px 24px rgba(2,6,23,0.06);
+  display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+html.dark .card{background:var(--card-dark);box-shadow:0 12px 26px rgba(0,0,0,0.6)}
+.card:hover.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.18);
+  background: rgba(255, 0, 0, 0.75);  /* rojo suave */
+  color: rgba(255, 255, 255, 0.074);
+}
+.card:hover h3,
+.card:hover .abilities,
+.card:hover .type {
+  color: rgb(255, 255, 255) !important;
+}
+
+.card img{width:120px;height:120px;object-fit:contain}
+.card h3{margin:.6rem 0 .25rem 0;font-size:1rem}
+.types{display:flex;gap:.4rem;flex-wrap:wrap}
+.type{padding:.2rem .5rem;border-radius:999px;font-size:.78rem;background:rgba(0,0,0,0.05)}
+html.dark .type{background:rgba(255,255,255,0.04)}
+.abilities{margin-top:.4rem;font-size:.88rem;color:var(--muted)}
+
+/* Favorite heart */
+.favorite-btn{position:absolute;top:8px;right:8px;background:transparent;border:none;font-size:1.2rem;cursor:pointer}
+.favorite-btn.active{color:#ff3b5c;transform:scale(1.05)}
+
+/* Pagination */
+.pagination{display:flex;justify-content:center;align-items:center;gap:1rem;margin-top:1rem}
+.pagination button{padding:.6rem .9rem;border-radius:10px;border:0;background:var(--accent);color:white;cursor:pointer}
+
+/* Footer */
+.site-footer{padding:1rem 0;margin-top:2rem;color:#fff;text-align:center}
+.visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap;border:0;padding:0;margin:-1px}
+
+/* Fix footer text color en modo claro */
+html:not(.dark) .site-footer {
+  color: #0b1220 !important;
+}
